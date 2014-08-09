@@ -1,0 +1,14 @@
+dl.error input {
+	background-color: #fcc;
+}
+
+dd.error {
+	color: #c00;
+}
+
+tr {
+	border: 1px solid #ccc;
+}
+th, td {
+	padding: 5px;
+}

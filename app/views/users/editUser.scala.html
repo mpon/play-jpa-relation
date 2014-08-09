@@ -9,9 +9,11 @@
     @form(routes.UserController.updateUser(id)) {
     	@inputText(userForm("email"), '_showConstraints -> false)
     	@inputText(userForm("fullname"), '_showConstraints -> false)
-    	@inputText(userForm("password"), '_showConstraints -> false)
+    	@inputPassword(userForm("password"), '_showConstraints -> false)
     	@checkbox(userForm("isAdmin"), '_showConstraints -> false)
-    	@inputText(userForm("age"), '_showConstraints -> false)
+    	@inputText(userForm("age"), '_showConstraints -> false, 'maxlength -> 3)
+        @inputText(userForm("address.city"), '_showConstraints -> false)
+        @inputText(userForm("address.zipCode"), '_showConstraints -> false, 'maxlength -> 7)
 
     	<button type="submit">submit</button>
     }

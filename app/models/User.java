@@ -1,5 +1,6 @@
 package models;
 
+import javax.validation.*;
 import javax.persistence.*;
 
 import play.db.jpa.*;
@@ -37,6 +38,11 @@ public class User {
     @Constraints.Required
     @Constraints.Min(value = 0)
     private Integer age;
+
+    @Valid
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Address address;
 
     public Long getId() {
     	return this.id;
@@ -86,6 +92,14 @@ public class User {
     	this.age = age;
     }
 
+    public Address getAddress() {
+        return this.address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     public static User findById(Long id) {
         return JPA.em().find(User.class, id);
     }
@@ -95,12 +109,15 @@ public class User {
     }
 
     public void save() {
+        this.address.setOwner(this);
         JPA.em().persist(this);
         JPA.em().flush();
     }
 
     public void update(Long id){
         this.setId(id);
+        this.address.setOwner(this);
+        this.address.setId(id);
         JPA.em().merge(this);
         JPA.em().flush();
     }
