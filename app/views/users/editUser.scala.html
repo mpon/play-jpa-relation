@@ -1,4 +1,4 @@
-@(userForm: Form[User])
+@(id: Long, userForm: Form[User])
 
 @import helper._
 
@@ -6,12 +6,12 @@
 
     <h3>input new user</h3>
 	
-    @form(routes.UserController.updateUser(userForm("id").value.toLong)) {
-    	@inputText(userForm("email"))
-    	@inputText(userForm("fullname"))
-    	@inputText(userForm("password"))
-    	@checkbox(userForm("isAdmin"))
-    	@inputText(userForm("age"))
+    @form(routes.UserController.updateUser(id)) {
+    	@inputText(userForm("email"), '_showConstraints -> false)
+    	@inputText(userForm("fullname"), '_showConstraints -> false)
+    	@inputText(userForm("password"), '_showConstraints -> false)
+    	@checkbox(userForm("isAdmin"), '_showConstraints -> false)
+    	@inputText(userForm("age"), '_showConstraints -> false)
 
     	<button type="submit">submit</button>
     }

@@ -28,6 +28,9 @@ public class UserController extends Controller {
     @Transactional
     public static Result createUser() {
     	Form<User> newForm = userForm.bindFromRequest();
+        if (newForm.hasErrors()) {
+            return badRequest(newUser.render(newForm));
+        }
     	User user = newForm.get();
     	user.save();
     	return redirect(routes.UserController.users());
@@ -37,14 +40,14 @@ public class UserController extends Controller {
     public static Result editUser(Long id) {
         User user = User.findById(id);
         Form<User> editForm = userForm.fill(user);
-        return ok(editUser.render(editForm));
+        return ok(editUser.render(id, editForm));
     }
 
     @Transactional
     public static Result updateUser(Long id) {
         Form<User> editForm = userForm.bindFromRequest();
         if(editForm.hasErrors()) {
-            return badRequest(editUser.render(editForm));
+            return badRequest(editUser.render(id, editForm));
         }
         User user = editForm.get();
         user.update(id);

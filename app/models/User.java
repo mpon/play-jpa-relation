@@ -3,6 +3,7 @@ package models;
 import javax.persistence.*;
 
 import play.db.jpa.*;
+import play.data.validation.*;
 
 import java.util.List;
 
@@ -15,18 +16,26 @@ public class User {
     private Long id;
     
     @Column(name = "email")
+    @Constraints.Required
+    @Constraints.Email
+    @Constraints.MaxLength(value = 255)
     private String email;
     
     @Column(name = "password")
+    @Constraints.Required
     private String password;
 
     @Column(name = "fullname")
+    @Constraints.Required
+    @Constraints.MaxLength(value = 255)
     private String fullname;
 
     @Column(name = "is_admin")
     private Boolean isAdmin = false;
 
     @Column(name = "age")
+    @Constraints.Required
+    @Constraints.Min(value = 0)
     private Integer age;
 
     public Long getId() {
