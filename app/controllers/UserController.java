@@ -33,4 +33,29 @@ public class UserController extends Controller {
     	return redirect(routes.UserController.users());
     }
 
+    @Transactional
+    public static Result editUser(Long id) {
+        User user = User.findById(id);
+        Form<User> editForm = userForm.fill(user);
+        return ok(editUser.render(editForm));
+    }
+
+    @Transactional
+    public static Result updateUser(Long id) {
+        Form<User> editForm = userForm.bindFromRequest();
+        if(editForm.hasErrors()) {
+            return badRequest(editUser.render(editForm));
+        }
+        User user = editForm.get();
+        user.update(id);
+        return redirect(routes.UserController.users());
+    }
+
+    @Transactional
+    public static Result deleteUser(Long id) {
+        User user = User.findById(id);
+        user.delete();
+        return redirect(routes.UserController.users());
+    }
+
 }

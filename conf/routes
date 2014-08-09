@@ -7,6 +7,9 @@ GET     /                           controllers.Application.index()
 GET     /users                      controllers.UserController.users()
 GET     /user                       controllers.UserController.newUser()
 POST    /user                       controllers.UserController.createUser()
+GET     /user/:id                   controllers.UserController.editUser(id: Long)
+POST    /user/:id                   controllers.UserController.updateUser(id: Long)
+GET     /user/delete/:id            controllers.UserController.deleteUser(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

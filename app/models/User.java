@@ -24,7 +24,7 @@ public class User {
     private String fullname;
 
     @Column(name = "is_admin")
-    private Boolean isAdmin;
+    private Boolean isAdmin = false;
 
     @Column(name = "age")
     private Integer age;
@@ -77,12 +77,27 @@ public class User {
     	this.age = age;
     }
 
+    public static User findById(Long id) {
+        return JPA.em().find(User.class, id);
+    }
+
     public static List<User> findAll() {
         return JPA.em().createQuery("select u from User u", User.class).getResultList();
     }
 
     public void save() {
         JPA.em().persist(this);
+        JPA.em().flush();
+    }
+
+    public void update(Long id){
+        this.setId(id);
+        JPA.em().merge(this);
+        JPA.em().flush();
+    }
+
+    public void delete() {
+        JPA.em().remove(this);
         JPA.em().flush();
     }
 

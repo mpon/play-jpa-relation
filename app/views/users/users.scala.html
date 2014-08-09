@@ -16,6 +16,7 @@
 		    		<th>fullname</th>
 		    		<th>isAdmin</th>
 		    		<th>age</th>
+		    		<th></th>
 		    	</tr>
 	    	</thead>
 	    	<tbody>
@@ -27,6 +28,10 @@
 	    			<td>@user.getFullname</td>
 	    			<td>@user.getIsAdmin</td>
 	    			<td>@user.getAge</td>
+	    			<td>
+	    				<a href="@routes.UserController.editUser(user.getId)">edit</a>
+	    				<a href="@routes.UserController.deleteUser(user.getId)">delete</a>
+	    			</td>
 	    		</tr>
 	    		}
 	    	</tbody>
