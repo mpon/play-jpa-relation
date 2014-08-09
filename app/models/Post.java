@@ -1,22 +1,34 @@
 package models;
 
+import javax.validation.*;
 import javax.persistence.*;
+
+import play.db.jpa.*;
+import play.data.validation.*;
+
+import java.util.List;
 import java.sql.Date;
 
 @Entity
+@Table(name = "posts")
 public class Post {
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private Long id;
     
+    @Column(name = "title")
     private String title;
     
+    @Column(name = "content")
     private String content;
 
-    private Date postedAt;
+    @Column(name = "posted_at")
+    private Date postedAt = new Date(System.currentTimeMillis());
 
-    private Long authorId;
-
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private User author;
 
     public Long getId() {
     	return this.id;
@@ -42,20 +54,33 @@ public class Post {
     	this.content = content;
     }
 
-    public Date getPostedAd() {
+    public Date getPostedAt() {
     	return this.postedAt;
     }
 
-    public void setPostedAd(Date postedAt) {
+    public void setPostedAt(Date postedAt) {
     	this.postedAt = postedAt;
     }
 
-    public Long getAuthorId() {
-    	return this.authorId;
+    public User getAuthor() {
+    	return this.author;
     }
 
-    public void setAuthorId(Long authorId) {
-    	this.authorId = authorId;
+    public void setAuthor(User author) {
+    	this.author = author;
+    }
+
+    public static List<Post> findAllByUserId(Long userId) {
+        return JPA.em()
+                    .createQuery("select p from Post p where author.id = :userId")
+                    .setParameter("userId", userId)
+                    .getResultList();
+    }
+
+    public void save(User user) {
+        this.setAuthor(user);
+        JPA.em().persist(this);
+        JPA.em().flush();
     }
 
 }

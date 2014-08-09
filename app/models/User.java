@@ -44,6 +44,9 @@ public class User {
     @PrimaryKeyJoinColumn
     private Address address;
 
+    @OneToMany(mappedBy="author", cascade=CascadeType.ALL)
+    private List<Post> posts;
+
     public Long getId() {
     	return this.id;
     }
@@ -98,6 +101,14 @@ public class User {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public List<Post> getPosts() {
+        return this.posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
     public static User findById(Long id) {

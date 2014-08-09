@@ -4,7 +4,10 @@
 
 @main("input new user") {
 
-    <h3>input new user</h3>
+    <h1>input new user</h1>
+    <div>
+        <a href="@routes.UserController.users">back to users</a>
+    </div>
 	
     @form(routes.UserController.createUser) {
     	@inputText(userForm("email"), '_showConstraints -> false)

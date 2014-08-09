@@ -1,0 +1,16 @@
+@(userId: Long, postForm: Form[Post])
+
+@import helper._
+
+@main("input new post") {
+
+    <h1>input new post for user:@userId</h1>
+	
+    @form(routes.PostController.save(userId)) {
+    	@inputText(postForm("title"), '_showConstraints -> false)
+    	@textarea(postForm("content"), '_showConstraints -> false, 'cols -> 50, 'rows -> 10)
+
+    	<button type="submit">submit</button>
+    }
+
+}

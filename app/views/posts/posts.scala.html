@@ -1,0 +1,40 @@
+@(userId: Long, postList: List[Post])
+
+@main("show all posts") {
+
+	<h1>post list by @userId</h1>
+	<div>
+		<a href="@routes.UserController.users">back to users</a>
+		<a href="@routes.PostController.create(userId)">new post</a>
+	</div>
+
+	<div>
+		<table>
+	    	<thead>
+				<tr>
+		    		<th>Id</th>
+		    		<th>title</th>
+		    		<th>content</th>
+		    		<th>postedAt</th>
+		    		<th>command</th>
+		    	</tr>
+	    	</thead>
+	    	<tbody>
+	    		@for(post <- postList) {
+	    		<tr>
+	    			<td>@post.getId</td>
+	    			<td>@post.getTitle</td>
+	    			<td>@post.getContent</td>
+	    			<td>@post.getPostedAt</td>
+	    			<td>
+	    				<a href="#">edit</a>
+	    				<a href="#">delete</a>
+	    			</td>
+	    		</tr>
+	    		}
+	    	</tbody>
+
+	    </table>
+	</div>
+
+}

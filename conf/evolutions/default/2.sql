@@ -7,7 +7,7 @@ CREATE TABLE posts (
     id bigint(20) NOT NULL AUTO_INCREMENT,
     title varchar(255) NOT NULL,
     content text NOT NULL,
-    postedAt date NOT NULL,
+    posted_at date NOT NULL,
     author_id bigint(20) NOT NULL,
     FOREIGN KEY (author_id) REFERENCES users(id),
     PRIMARY KEY (id)

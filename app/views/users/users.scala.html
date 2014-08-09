@@ -2,6 +2,8 @@
 
 @main("show all users") {
 
+	<h1>user list</h1>
+
 	<div>
 		<a href="@routes.UserController.newUser()">new user</a>
 	</div>
@@ -35,6 +37,7 @@
 	    			<td>
 	    				<a href="@routes.UserController.editUser(user.getId)">edit</a>
 	    				<a href="@routes.UserController.deleteUser(user.getId)">delete</a>
+	    				<a href="@routes.PostController.posts(user.getId)">posts</a>
 	    			</td>
 	    		</tr>
 	    		}
