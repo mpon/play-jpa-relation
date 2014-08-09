@@ -21,6 +21,7 @@ public class PostController extends Controller {
         return ok(posts.render(userId, postList));
     }
 
+    @Transactional
     public static Result create(Long userId) {
     	return ok(newPost.render(userId, postForm));
     }

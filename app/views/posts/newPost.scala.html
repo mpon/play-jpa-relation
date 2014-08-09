@@ -10,7 +10,8 @@
     	@inputText(postForm("title"), '_showConstraints -> false)
     	@textarea(postForm("content"), '_showConstraints -> false, 'cols -> 50, 'rows -> 10)
 
-    	@select(postForm("postTags.tag.id"), options(("1", "java"), ("2", "scala")), 'multiple -> "multiple")
+    	@select(postForm("postTags.tag.id"),
+    		options(Tag.options), 'multiple -> "multiple")
 
     	<button type="submit">submit</button>
     }

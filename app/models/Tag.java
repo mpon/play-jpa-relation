@@ -6,6 +6,8 @@ import play.db.jpa.*;
 import play.data.validation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.LinkedHashMap;
 
 @Entity
 @Table(name="tags")
@@ -52,6 +54,14 @@ public class Tag {
 
     public static Tag findById(Long id) {
         return JPA.em().find(Tag.class, id);
+    }
+
+    public static Map<String,String> options() {
+        LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
+        for(Tag tag : Tag.findAll()) {
+            options.put(String.valueOf(tag.getId()), tag.getName());
+        }
+        return options;
     }
 
     public void save() {
