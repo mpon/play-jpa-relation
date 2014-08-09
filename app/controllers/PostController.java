@@ -37,4 +37,31 @@ public class PostController extends Controller {
     	return redirect(routes.PostController.posts(userId));
     }
 
+    @Transactional
+    public static Result edit(Long id) {
+        Post post = Post.findById(id);
+        Form<Post> editForm = postForm.fill(post);
+        return ok(editPost.render(id, editForm));
+    }
+
+    @Transactional
+    public static Result update(Long id) {
+        Form<Post> editForm = postForm.bindFromRequest();
+        if(editForm.hasErrors()) {
+            return badRequest(editPost.render(id, editForm));
+        }
+        Post post = editForm.get();
+        post.update(id);
+        Long userId = post.getAuthor().getId();
+        return redirect(routes.PostController.posts(userId));
+    }
+
+    @Transactional
+    public static Result delete(Long id) {
+        Post post = Post.findById(id);
+        post.delete();
+        Long userId = post.getAuthor().getId();
+        return redirect(routes.PostController.posts(userId));
+    }
+
 }

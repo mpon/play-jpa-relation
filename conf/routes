@@ -3,17 +3,20 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
-GET     /users                      controllers.UserController.users()
-GET     /user                       controllers.UserController.newUser()
-POST    /user                       controllers.UserController.createUser()
-GET     /user/:id                   controllers.UserController.editUser(id: Long)
-POST    /user/:id                   controllers.UserController.updateUser(id: Long)
-GET     /user/delete/:id            controllers.UserController.deleteUser(id: Long)
+GET     /                         controllers.Application.index()
+GET     /users                    controllers.UserController.users()
+GET     /user                     controllers.UserController.newUser()
+POST    /user                     controllers.UserController.createUser()
+GET     /user/:id                 controllers.UserController.editUser(id: Long)
+POST    /user/:id                 controllers.UserController.updateUser(id: Long)
+GET     /user/delete/:id          controllers.UserController.deleteUser(id: Long)
 
-GET     /user/:userId/posts         controllers.PostController.posts(userId: Long)
-GET     /user/:userId/post          controllers.PostController.create(userId: Long)
-POST    /user/:userId/post          controllers.PostController.save(userId: Long)
+GET     /:userId/posts            controllers.PostController.posts(userId: Long)
+GET     /:userId/post             controllers.PostController.create(userId: Long)
+POST    /:userId/post             controllers.PostController.save(userId: Long)
+GET     /post/:id                 controllers.PostController.edit(id: Long)
+POST    /post/:id                 controllers.PostController.update(id: Long)
+GET     /post/delete/:id          controllers.PostController.delete(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /assets/*file             controllers.Assets.at(path="/public", file)

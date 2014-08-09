@@ -1,0 +1,17 @@
+@(id: Long, postForm: Form[Post])
+
+@import helper._
+
+@main("edit post") {
+
+    <h1>edit post :@id</h1>
+	
+    @form(routes.PostController.update(id)) {
+    	<input type="hidden" name="author.id" value="@postForm("author.id").value">
+    	@inputText(postForm("title"), '_showConstraints -> false)
+    	@textarea(postForm("content"), '_showConstraints -> false, 'cols -> 50, 'rows -> 10)
+
+    	<button type="submit">submit</button>
+    }
+
+}

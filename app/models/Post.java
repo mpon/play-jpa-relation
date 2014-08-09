@@ -70,9 +70,13 @@ public class Post {
     	this.author = author;
     }
 
+    public static Post findById(Long id) {
+        return JPA.em().find(Post.class, id);
+    }
+
     public static List<Post> findAllByUserId(Long userId) {
         return JPA.em()
-                    .createQuery("select p from Post p where author.id = :userId")
+                    .createQuery("select p from Post p where author.id = :userId", Post.class)
                     .setParameter("userId", userId)
                     .getResultList();
     }
@@ -80,6 +84,17 @@ public class Post {
     public void save(User user) {
         this.setAuthor(user);
         JPA.em().persist(this);
+        JPA.em().flush();
+    }
+
+    public void update(Long id) {
+        this.setId(id);
+        JPA.em().merge(this);
+        JPA.em().flush();
+    }
+
+    public void delete() {
+        JPA.em().remove(this);
         JPA.em().flush();
     }
 
