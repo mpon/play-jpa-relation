@@ -1,0 +1,35 @@
+@(tagList: List[Tag])
+
+@main("show all tags") {
+
+	<h1>tag list</h1>
+
+	<div>
+		<a href="@routes.TagController.create()">new tag</a>
+	</div>
+
+	<div>
+		<table>
+	    	<thead>
+				<tr>
+		    		<th>Id</th>
+		    		<th>name</th>
+		    	</tr>
+	    	</thead>
+	    	<tbody>
+	    		@for(tag <- tagList) {
+	    		<tr>
+	    			<td>@tag.getId</td>
+	    			<td>@tag.getName</td>
+	    			<td>
+	    				<a href="@routes.TagController.edit(tag.getId)">edit</a>
+	    				<a href="@routes.TagController.delete(tag.getId)">delete</a>
+	    			</td>
+	    		</tr>
+	    		}
+	    	</tbody>
+
+	    </table>
+	</div>
+
+}

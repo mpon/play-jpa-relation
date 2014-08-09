@@ -1,0 +1,18 @@
+@(tagForm: Form[Tag])
+
+@import helper._
+
+@main("input new Tag") {
+
+    <h1>input new Tag</h1>
+    <div>
+        <a href="@routes.TagController.tags">back to tags</a>
+    </div>
+	
+    @form(routes.TagController.save) {
+    	@inputText(tagForm("name"), '_showConstraints -> false)
+
+    	<button type="submit">submit</button>
+    }
+
+}

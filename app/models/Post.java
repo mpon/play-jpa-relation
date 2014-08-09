@@ -30,6 +30,10 @@ public class Post {
     @JoinColumn(name = "author_id")
     private User author;
 
+    @OneToMany(mappedBy = "post")
+    private List<PostTag> postTags;
+
+
     public Long getId() {
     	return this.id;
     }
@@ -68,6 +72,14 @@ public class Post {
 
     public void setAuthor(User author) {
     	this.author = author;
+    }
+
+    public List<PostTag> getPostTags() {
+        return this.postTags;
+    }
+
+    public void setPostTags(List<PostTag> postTags) {
+        this.postTags = postTags;
     }
 
     public static Post findById(Long id) {

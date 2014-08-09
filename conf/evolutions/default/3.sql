@@ -1,4 +1,4 @@
-# Status schema
+# Address schema
  
 # --- !Ups
  

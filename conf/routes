@@ -18,5 +18,12 @@ GET     /post/:id                 controllers.PostController.edit(id: Long)
 POST    /post/:id                 controllers.PostController.update(id: Long)
 GET     /post/delete/:id          controllers.PostController.delete(id: Long)
 
+GET     /tags                     controllers.TagController.tags()
+GET     /tag                      controllers.TagController.create()
+POST    /tag                      controllers.TagController.save()
+GET     /tag/:id                  controllers.TagController.edit(id: Long)
+POST    /tag/:id                  controllers.TagController.update(id: Long)
+GET     /tag/delete/:id           controllers.TagController.delete(id: Long)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file             controllers.Assets.at(path="/public", file)
