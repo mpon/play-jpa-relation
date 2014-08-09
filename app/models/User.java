@@ -2,20 +2,31 @@ package models;
 
 import javax.persistence.*;
 
+import play.db.jpa.*;
+
+import java.util.List;
+
 @Entity
+@Table(name="users")
 public class User {
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private Long id;
     
+    @Column(name = "email")
     private String email;
     
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "fullname")
     private String fullname;
 
+    @Column(name = "is_admin")
     private Boolean isAdmin;
 
+    @Column(name = "age")
     private Integer age;
 
     public Long getId() {
@@ -64,6 +75,15 @@ public class User {
 
     public void setAge(Integer age) {
     	this.age = age;
+    }
+
+    public static List<User> findAll() {
+        return JPA.em().createQuery("select u from User u", User.class).getResultList();
+    }
+
+    public void save() {
+        JPA.em().persist(this);
+        JPA.em().flush();
     }
 
 }

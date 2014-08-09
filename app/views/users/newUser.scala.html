@@ -1,0 +1,19 @@
+@(userForm: Form[User])
+
+@import helper._
+
+@main("input new user") {
+
+    <h3>input new user</h3>
+	
+    @form(routes.UserController.createUser) {
+    	@inputText(userForm("email"))
+    	@inputText(userForm("fullname"))
+    	@inputText(userForm("password"))
+    	@checkbox(userForm("isAdmin"))
+    	@inputText(userForm("age"))
+
+    	<button type="submit">submit</button>
+    }
+
+}

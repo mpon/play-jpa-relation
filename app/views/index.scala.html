@@ -1,7 +1,9 @@
-@(message: String)
+@main("top page") {
 
-@main("Welcome to Play") {
-
-    @play20.welcome(message, style = "Java")
+    <ul>
+    	<li>
+    		<a href="@routes.UserController.users()">show all users</a>
+    	</li>
+    </ul>
 
 }

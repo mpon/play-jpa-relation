@@ -1,0 +1,37 @@
+@(userList: List[User])
+
+@main("show all users") {
+
+	<div>
+		<a href="@routes.UserController.newUser()">new user</a>
+	</div>
+
+	<div>
+		<table>
+	    	<thead>
+				<tr>
+		    		<th>Id</th>
+		    		<th>email</th>
+		    		<th>password</th>
+		    		<th>fullname</th>
+		    		<th>isAdmin</th>
+		    		<th>age</th>
+		    	</tr>
+	    	</thead>
+	    	<tbody>
+	    		@for(user <- userList) {
+	    		<tr>
+	    			<td>@user.getId</td>
+	    			<td>@user.getEmail</td>
+	    			<td>@user.getPassword</td>
+	    			<td>@user.getFullname</td>
+	    			<td>@user.getIsAdmin</td>
+	    			<td>@user.getAge</td>
+	    		</tr>
+	    		}
+	    	</tbody>
+
+	    </table>
+	</div>
+
+}
