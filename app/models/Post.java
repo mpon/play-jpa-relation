@@ -30,9 +30,8 @@ public class Post {
     @JoinColumn(name = "author_id")
     private User author;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<PostTag> postTags;
-
 
     public Long getId() {
     	return this.id;
@@ -82,6 +81,10 @@ public class Post {
         this.postTags = postTags;
     }
 
+    public void addPostTag(PostTag postTag) {
+        this.postTags.add(postTag);
+    }
+
     public static Post findById(Long id) {
         return JPA.em().find(Post.class, id);
     }
@@ -91,6 +94,20 @@ public class Post {
                     .createQuery("select p from Post p where author.id = :userId", Post.class)
                     .setParameter("userId", userId)
                     .getResultList();
+    }
+
+    public void setPostTagIds(String[] tagIds) {
+        if (tagIds == null) {
+            return;
+        }
+
+        for (String tagId : tagIds) {
+            Tag tag = JPA.em().find(Tag.class, Long.valueOf(tagId));
+            PostTag postTag = new PostTag();
+            postTag.setPost(this);
+            postTag.setTag(tag);
+            addPostTag(postTag);
+        }
     }
 
     public void save(User user) {

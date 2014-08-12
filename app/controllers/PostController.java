@@ -33,7 +33,12 @@ public class PostController extends Controller {
             return badRequest(newPost.render(userId, newForm));
         }
     	Post post = newForm.get();
+        String[] tagIds = request()
+                            .body()
+                            .asFormUrlEncoded()
+                            .get("postTags.tag.id[]");
         User user = User.findById(userId);
+        post.setPostTagIds(tagIds);
         post.save(user);
     	return redirect(routes.PostController.posts(userId));
     }
