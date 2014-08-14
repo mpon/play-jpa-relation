@@ -16,6 +16,7 @@
 		    		<th>title</th>
 		    		<th>content</th>
 		    		<th>postedAt</th>
+		    		<th>tags</th>
 		    		<th>command</th>
 		    	</tr>
 	    	</thead>
@@ -26,6 +27,7 @@
 	    			<td>@post.getTitle</td>
 	    			<td>@post.getContent</td>
 	    			<td>@post.getPostedAt</td>
+	    			<td>@post.getPostTags.map(_.getTag.getName).mkString(",")</td>
 	    			<td>
 	    				<a href="@routes.PostController.edit(post.getId)">edit</a>
 	    				<a href="@routes.PostController.delete(post.getId)">delete</a>
