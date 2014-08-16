@@ -81,10 +81,6 @@ public class Post {
         this.postTags = postTags;
     }
 
-    public void addPostTag(PostTag postTag) {
-        this.postTags.add(postTag);
-    }
-
     public static Post findById(Long id) {
         return JPA.em().find(Post.class, id);
     }
@@ -96,22 +92,11 @@ public class Post {
                     .getResultList();
     }
 
-    public void setPostTagIds(String[] tagIds) {
-        if (tagIds == null) {
-            return;
-        }
-
-        for (String tagId : tagIds) {
-            Tag tag = JPA.em().find(Tag.class, Long.valueOf(tagId));
-            PostTag postTag = new PostTag();
-            postTag.setPost(this);
-            postTag.setTag(tag);
-            addPostTag(postTag);
-        }
-    }
-
     public void save(User user) {
         this.setAuthor(user);
+        for (PostTag postTag : this.postTags) {
+            postTag.setPost(this);
+        }
         JPA.em().persist(this);
         JPA.em().flush();
     }
