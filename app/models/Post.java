@@ -30,7 +30,7 @@ public class Post {
     @JoinColumn(name = "author_id")
     private User author;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostTag> postTags;
 
     public Long getId() {
@@ -94,16 +94,29 @@ public class Post {
 
     public void save(User user) {
         this.setAuthor(user);
-        for (PostTag postTag : this.postTags) {
-            postTag.setPost(this);
+        if (this.postTags != null) {
+            for (PostTag postTag : this.postTags) {
+                postTag.setPost(this);
+            }
         }
         JPA.em().persist(this);
         JPA.em().flush();
     }
 
     public void update(Long id) {
-        this.setId(id);
-        JPA.em().merge(this);
+        Post post = Post.findById(id);
+        post.getPostTags().clear();
+        JPA.em().flush();
+
+        post.setTitle(this.title);
+        post.setContent(this.content);
+        post.setPostedAt(new Date(System.currentTimeMillis()));
+        if (this.postTags != null) {
+            for (PostTag postTag : this.postTags) {
+                postTag.setPost(post);
+                post.getPostTags().add(postTag);
+            }
+        }
         JPA.em().flush();
     }
 

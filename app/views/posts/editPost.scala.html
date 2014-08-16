@@ -11,6 +11,9 @@
     	@inputText(postForm("title"), '_showConstraints -> false)
     	@textarea(postForm("content"), '_showConstraints -> false, 'cols -> 50, 'rows -> 10)
 
+    	@select(postForm("postTags"),
+    		options(Tag.options), 'multiple -> "multiple")
+
     	<button type="submit">submit</button>
     }
 

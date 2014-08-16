@@ -48,7 +48,7 @@ public class PostController extends Controller {
     @Transactional
     public static Result update(Long id) {
         Form<Post> editForm = postForm.bindFromRequest();
-        if(editForm.hasErrors()) {
+        if (editForm.hasErrors()) {
             return badRequest(editPost.render(id, editForm));
         }
         Post post = editForm.get();
