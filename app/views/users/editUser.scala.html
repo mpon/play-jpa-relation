@@ -9,7 +9,7 @@
         <a href="@routes.UserController.users">back to users</a>
     </div>
 	
-    @form(routes.UserController.updateUser(id)) {
+    @form(routes.UserController.update(id)) {
     	@inputText(userForm("email"), '_showConstraints -> false)
     	@inputText(userForm("fullname"), '_showConstraints -> false)
     	@inputPassword(userForm("password"), '_showConstraints -> false)

@@ -21,12 +21,12 @@ public class UserController extends Controller {
         return ok(users.render(userList));
     }
 
-    public static Result newUser() {
+    public static Result create() {
     	return ok(newUser.render(userForm));
     }
 
     @Transactional
-    public static Result createUser() {
+    public static Result save() {
     	Form<User> newForm = userForm.bindFromRequest();
         if (newForm.hasErrors()) {
             return badRequest(newUser.render(newForm));
@@ -37,14 +37,14 @@ public class UserController extends Controller {
     }
 
     @Transactional
-    public static Result editUser(Long id) {
+    public static Result edit(Long id) {
         User user = User.findById(id);
         Form<User> editForm = userForm.fill(user);
         return ok(editUser.render(id, editForm));
     }
 
     @Transactional
-    public static Result updateUser(Long id) {
+    public static Result update(Long id) {
         Form<User> editForm = userForm.bindFromRequest();
         if(editForm.hasErrors()) {
             return badRequest(editUser.render(id, editForm));
@@ -55,7 +55,7 @@ public class UserController extends Controller {
     }
 
     @Transactional
-    public static Result deleteUser(Long id) {
+    public static Result delete(Long id) {
         User user = User.findById(id);
         user.delete();
         return redirect(routes.UserController.users());

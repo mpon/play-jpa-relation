@@ -5,11 +5,11 @@
 # Home page
 GET     /                         controllers.Application.index()
 GET     /users                    controllers.UserController.users()
-GET     /user                     controllers.UserController.newUser()
-POST    /user                     controllers.UserController.createUser()
-GET     /user/:id                 controllers.UserController.editUser(id: Long)
-POST    /user/:id                 controllers.UserController.updateUser(id: Long)
-GET     /user/delete/:id          controllers.UserController.deleteUser(id: Long)
+GET     /user                     controllers.UserController.create()
+POST    /user                     controllers.UserController.save()
+GET     /user/:id                 controllers.UserController.edit(id: Long)
+POST    /user/:id                 controllers.UserController.update(id: Long)
+GET     /user/delete/:id          controllers.UserController.delete(id: Long)
 
 GET     /:userId/posts            controllers.PostController.posts(userId: Long)
 GET     /:userId/post             controllers.PostController.create(userId: Long)

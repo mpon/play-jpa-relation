@@ -6,7 +6,7 @@
 
 	<div>
 		<a href="@routes.Application.index">back to top</a>
-		<a href="@routes.UserController.newUser">new user</a>
+		<a href="@routes.UserController.create">new user</a>
 	</div>
 
 	<div>
@@ -36,8 +36,8 @@
 	    			<td>@user.getAddress.getCity</td>
 	    			<td>@user.getAddress.getZipCode</td>
 	    			<td>
-	    				<a href="@routes.UserController.editUser(user.getId)">edit</a>
-	    				<a href="@routes.UserController.deleteUser(user.getId)">delete</a>
+	    				<a href="@routes.UserController.edit(user.getId)">edit</a>
+	    				<a href="@routes.UserController.delete(user.getId)">delete</a>
 	    				<a href="@routes.PostController.posts(user.getId)">posts</a>
 	    			</td>
 	    		</tr>
