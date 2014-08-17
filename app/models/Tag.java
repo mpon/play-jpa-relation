@@ -21,7 +21,7 @@ public class Tag {
     @Constraints.Required
     private String name;
     
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostTag> postTags;
     
     public Long getId() {
@@ -49,7 +49,7 @@ public class Tag {
     }
 
     public static List<Tag> findAll() {
-        return JPA.em().createQuery("select t from Tag t", Tag.class).getResultList();
+        return JPA.em().createQuery("select t from Tag t order by t.id asc", Tag.class).getResultList();
     }
 
     public static Tag findById(Long id) {
