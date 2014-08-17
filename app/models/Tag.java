@@ -71,8 +71,8 @@ public class Tag {
     }
 
     public void update(Long id) {
-        this.setId(id);
-        JPA.em().merge(this);
+        Tag tag = Tag.findById(id);
+        tag.setName(this.name);
         JPA.em().flush();
     }
 
