@@ -7,9 +7,13 @@ import play.db.jpa.*;
 import java.io.Serializable;
 
 
+// This Table doesn't have a single primary key.
+// post_id and tag_id are composit primary key.
+// so you must anotate `@Id` to post and tag
 @Entity
 @Table(name="posts_tags")
 public class PostTag implements Serializable {
+
     @Id
     @ManyToOne
     @JoinColumn(name = "post_id")

@@ -39,6 +39,8 @@ public class User {
     @Constraints.Min(value = 0)
     private Integer age;
 
+    // This is One to One relationshiop with shared primary key
+    // you have to anotate `@PrimaryKeyJoinColumn`
     @Valid
     @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
@@ -119,16 +121,42 @@ public class User {
         return JPA.em().createQuery("select u from User u", User.class).getResultList();
     }
 
+    /**
+     * create a user
+     *
+     * This is called when submit new form
+     */
     public void save() {
+        // address doesn't know owner in binding form
+        // because user did not exist before create
+        // so you must set an owner here
         this.address.setOwner(this);
         JPA.em().persist(this);
         JPA.em().flush();
     }
 
+    /**
+     * update a user
+     *
+     * This is called when edit existing model
+     *
+     * @param id post that you want to edit
+     */
     public void update(Long id){
+        // `this` means binding from request and converting model by data binder
+        // so `this` does not know id, and you must set id
         this.setId(id);
+
+        // address doesn't know owner in binding form
+        // so you must set the owner
         this.address.setOwner(this);
+
+        // address and user have the same primary key
+        // and i will merge model by form binding
+        // so you must set user's id
         this.address.setId(id);
+
+        // you have to call merge, so `this` means model by form binding
         JPA.em().merge(this);
         JPA.em().flush();
     }

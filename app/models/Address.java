@@ -23,6 +23,8 @@ public class Address {
     @Constraints.Pattern(value = "\\d{7}")
     private String zipCode;
 
+    // This is One to One relationship with shared primary key
+    // so you must anotate `@MapsId`
     @MapsId 
     @OneToOne(mappedBy = "address")
     @JoinColumn(name = "user_id")

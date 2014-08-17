@@ -21,6 +21,7 @@ public class Tag {
     @Constraints.Required
     private String name;
     
+    // you must anotate orphanRemoval when deleting a postTag element
     @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostTag> postTags;
     

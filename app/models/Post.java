@@ -30,6 +30,7 @@ public class Post {
     @JoinColumn(name = "author_id")
     private User author;
 
+    // you must anotate orphanRemoval when deleting a postTag element
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostTag> postTags;
 
@@ -87,14 +88,28 @@ public class Post {
 
     public static List<Post> findAllByUserId(Long userId) {
         return JPA.em()
-                    .createQuery("select p from Post p where author.id = :userId", Post.class)
+                    .createQuery("select p from Post p where author.id = :userId order by p.id asc", Post.class)
                     .setParameter("userId", userId)
                     .getResultList();
     }
 
+    /**
+     * create a post
+     *
+     * This is called when submit new form
+     *
+     * @param user author Of this post
+     */
     public void save(User user) {
+        // post doesn't know author in binding form
+        // so you must set author before save
         this.setAuthor(user);
+
+        // if you submit no tags in creating post, `this.postTags` is null
+        // so you must check null
         if (this.postTags != null) {
+            // tags have set by binding from request but not post
+            // so you must set post to postTag
             for (PostTag postTag : this.postTags) {
                 postTag.setPost(this);
             }
@@ -103,20 +118,42 @@ public class Post {
         JPA.em().flush();
     }
 
+    /**
+     * update a post
+     *
+     * This is called when edit existing model
+     *
+     * @param id post that you want to edit
+     */
     public void update(Long id) {
         Post post = Post.findById(id);
+        // first, you have to clear all tags
+        // and flush, not merge
         post.getPostTags().clear();
         JPA.em().flush();
 
+        // second, you set edit value
+        // `this` means form values by submitting
         post.setTitle(this.title);
         post.setContent(this.content);
         post.setPostedAt(new Date(System.currentTimeMillis()));
+
+        // third, you set tags
+        // if you submit no tags in creating post, `this.postTags` is null
+        // so you must check null
         if (this.postTags != null) {
             for (PostTag postTag : this.postTags) {
+                // tags have set by binding from request but not post
+                // so you must set post to postTag
                 postTag.setPost(post);
+
+                // you must add tag, so you clear all tags in first
                 post.getPostTags().add(postTag);
             }
         }
+
+        // forth, you call flush not merge
+        // because, this post is fetched by database
         JPA.em().flush();
     }
 
